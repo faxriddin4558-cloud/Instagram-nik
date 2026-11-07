@@ -70,3 +70,20 @@ test("CSV yozish/o'qish", () => {
   fs.writeFileSync(f, toCsv([{ username: "f1", note: 'a, "b"' }], ["username", "note"]));
   assert.deepEqual(readCsv(f), [{ username: "f1", note: 'a, "b"' }]);
 });
+
+const { beauty4, pickManual, rankBeauty4 } = require("../lib/beauty4.cjs");
+
+test("beauty4: namunalar chiroyli deb topiladi", () => {
+  for (const u of ["7112", "7007", "7771", "f7x9"]) assert.ok(beauty4(u), u);
+  assert.equal(beauty4("a1b2c"), null);
+  assert.equal(beauty4("8251"), null);
+  assert.ok(beauty4("7777").score > beauty4("7112").score);
+});
+
+test("beauty4: qo'lda tekshirish ro'yxati — 30 ta, namunalar birinchi, hammasi tekshirilmagan", () => {
+  const top = pickManual(rankBeauty4(), { pinned: ["7112", "7007", "7771", "f7x9"] });
+  assert.equal(top.length, 30);
+  assert.deepEqual(top.slice(0, 4).map((c) => c.username), ["7112", "7007", "7771", "f7x9"]);
+  assert.ok(top.every((c) => c.status === "tekshirilmagan" && c.username.length === 4));
+  assert.equal(new Set(top.map((c) => c.username)).size, 30);
+});

@@ -135,7 +135,7 @@ function writeOutputs(opts, ranked, results) {
 function printSummary(top, results, stopReason) {
   const count = (s) => results.filter((r) => r.status === s).length;
   console.log("\n================ XULOSA ================");
-  console.log(`Tekshirilgan: ${results.length} | band: ${count(STATUS.TAKEN)} | ehtimol bo'sh: ${count(STATUS.POSSIBLE)} | noma'lum: ${count(STATUS.UNKNOWN)}`);
+  console.log(`Tekshirilgan: ${results.length} | band: ${count(STATUS.TAKEN)} | ehtimol bo'sh: ${count(STATUS.POSSIBLE)} | noma'lum: ${count(STATUS.UNKNOWN)} | cheklov: ${count(STATUS.RATE_LIMITED)}`);
   if (stopReason) console.log(`TO'XTATILDI: ${stopReason}`);
   console.log("\nEng yaxshi 50 nomzod (top50.csv):");
   console.log("  #  nik    tur      ball  holat");
@@ -198,6 +198,9 @@ async function main() {
         if (STOP_STATUSES.has(r.status)) {
           stopReason = `${r.status}: ${r.note}. Himoya chetlab o'tilmaydi — keyinroq (bir necha soat) qayta ishga tushiring.`;
           protectionStop = true;
+          // Cheklangan nik ham results.csv ga yoziladi: u bo'sh ham, band ham emas.
+          // Keyingi ishga tushirishda qayta tekshiriladi.
+          results.push({ ...row, note: `${r.note} — bo'sh ham, band ham deb hisoblanmaydi` });
           break;
         }
         results.push(row);

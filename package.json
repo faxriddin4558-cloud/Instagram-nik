@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node finder.cjs",
     "dry-run": "node finder.cjs --dry-run",
-    "test": "node --test test/finder.test.cjs"
+    "test": "node --test test/finder.test.cjs",
+    "shortlist": "node shortlist.cjs"
   },
   "dependencies": {
     "playwright": "^1.49.0"

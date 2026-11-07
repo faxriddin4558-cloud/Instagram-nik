@@ -68,3 +68,22 @@ Workflow: `.github/workflows/ig-username-finder.yml` — faqat qo'lda (`workflow
 Login/CAPTCHA/rate-limit chiqsa dastur darhol to'xtaydi (chiqish kodi 3) va run ogohlantirish bilan tugaydi.
 Eslatma: GitHub Actions serverlari (datacenter IP) Instagram tomonidan tez-tez login sahifasiga
 yo'naltiriladi — bunda natija `login_talab` bo'ladi, bu kutilgan holat.
+
+## 4 belgili chiroyli niklar (tarmoqsiz)
+
+```bash
+npm run shortlist
+```
+
+Instagram'ga so'rov yubormaydi. `shortlists/` papkasiga yozadi:
+
+| Fayl | Mazmuni |
+|---|---|
+| `beauty4_shortlist.csv` | Eng yaxshi 500 ta 4 belgili nomzod (hammasi `tekshirilmagan`) |
+| `manual_top30.csv` | Qo'lda tekshirish uchun 30 ta, bo'sh `ilova_natijasi` ustuni bilan |
+| `MANUAL_TOP30.md` | Shu 30 ta — belgilab chiqish uchun ro'yxat |
+
+Shablonlar: `AAAA` (7777), `AAAB` (7771), `ABBA` (7007), `ABAB` (7070), `AABB`, `ABBC` (7112),
+`X000`, ketma-ket; aralash: `LDLD` (f7x9), `L+DDD` (x777), `DDD+L`, `LDDL`, `LLDD`;
+harfli: `AAAA`, talaffuzli `ABAB`/`CVCV`. 7112, 7007, 7771, f7x9 ro'yxat boshida turadi.
+Xilma-xillik uchun bitta harf ko'pi bilan 2 ta nikda ishlatiladi.
